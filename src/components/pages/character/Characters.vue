@@ -25,6 +25,11 @@ export default {
       if (newValue) {
         this.getCharacters()
       }
+    },
+    characters (newValue, oldValue) {
+      if (newValue) {
+        this.initCharacter()
+      }
     }
   },
 
@@ -50,6 +55,13 @@ export default {
         console.warn(error)
       } finally {
         this.loading = false
+      }
+    },
+
+    initCharacter () {
+      console.log('init char...', this.characterId)
+      if (this.characterId) {
+        this.$store.commit('select_character', this.characterId)
       }
     }
   }

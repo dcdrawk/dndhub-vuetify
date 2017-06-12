@@ -176,6 +176,9 @@ export default {
     character () {
       return this.$store.state.character
     },
+    // selectedCharacter () {
+
+    // },
     user () {
       return this.$store.state.user
     }
