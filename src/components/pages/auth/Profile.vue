@@ -71,6 +71,7 @@
           <v-card-text>
             <v-layout row wrap v-if="user">
               <v-flex xs12>
+                Coming Soon
               </v-flex>
             </v-layout>
           </v-card-text>

@@ -33,15 +33,16 @@
               <v-list two-line dense>
 
                 <v-list-item v-for="(character, key, index) in characters" :key="index">
-                  <v-list-tile avatar ripple
-                  @click.native="selectCharacter(key)">
-                    <v-list-tile-action>
+                  <v-list-tile
+                  >
+                    <v-list-tile-action @click="selectCharacter(key)">
                       <!--<v-checkbox v-model="character.selected" @click.native.stop=""></v-checkbox>-->
                       <!--{{ characterId }}-->
-                      <v-radio primary v-model="characterId" :value="key"></v-radio>
+                      <v-radio primary v-model="characterId" :value="key"
+                       @click.native="selectCharacter(key)"></v-radio>
                     </v-list-tile-action>
-                    <v-list-tile-content>
-                      <v-list-tile-title>{{ character.name }}</v-list-tile-title>
+                    <v-list-tile-content @click="selectCharacter(key)">
+                      <v-list-tile-title >{{ character.name }}</v-list-tile-title>
                       <!--<v-list-tile-sub-title class="grey--text text--darken-4">{{ item.headline }}</v-list-tile-sub-title>-->
                       <v-list-tile-sub-title>
                         Level {{ character.level }}
@@ -49,6 +50,30 @@
                         {{ character.class }}
                       </v-list-tile-sub-title>
                     </v-list-tile-content>
+                    <v-list-tile-action @click.native.stop>
+                      <v-menu bottom left>
+                        <v-btn icon="icon" slot="activator" dark>
+                          <v-icon>more_vert</v-icon>
+                        </v-btn>
+                        <v-list>
+                          <v-list-item>
+                            <v-list-tile @click.native="copyCharacter(character)">
+                              <v-list-tile-action>
+                                <v-icon>content_copy</v-icon>
+                              </v-list-tile-action>
+                              <v-list-tile-title>Copy</v-list-tile-title>
+                            </v-list-tile>
+                            <v-list-tile @click.native="showDelete(character, key)">
+                              <v-list-tile-action>
+                                <v-icon>delete</v-icon>
+                              </v-list-tile-action>
+                              <v-list-tile-title>Delete</v-list-tile-title>
+                            </v-list-tile>
+                          </v-list-item>
+                        </v-list>
+                      </v-menu>
+                    </v-list-tile-action>
+
                     <!--<v-list-tile-action>
                       <v-list-tile-action-text>{{ item.action }}</v-list-tile-action-text>
                       <v-icon class="grey--text text--lighten-1">star_border</v-icon>
@@ -61,9 +86,29 @@
           </v-fade-transition>
           <!--</v-slide-y-transition>-->
 
+
         </v-card>
       </v-flex>
     </v-layout>
+    <v-dialog v-model="showDeleteDialog">
+      <!--<v-btn primary light slot="activator">Open Dialog</v-btn>-->
+      <v-card v-if="selectedCharacter">
+        <v-card-row>
+          <v-card-title>Delete Character</v-card-title>
+        </v-card-row>
+        <v-card-row>
+          <v-card-text>Are You Sure you want to delete <strong>{{ selectedCharacter.name }}</strong>?</v-card-text>
+        </v-card-row>
+        <v-card-row actions>
+          <v-btn flat @click.native="showDeleteDialog = false">Cancel</v-btn>
+          <v-btn
+            class="white--text red"
+            @click.native="deleteCharacter(selectedCharacter.id)"
+            :loading="deleting"
+          >Delete</v-btn>
+        </v-card-row>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -81,7 +126,19 @@ export default {
   // Data
   data () {
     return {
-      loading: false
+      loading: false,
+      showDeleteDialog: false,
+      selectedCharacter: undefined,
+      deleting: false
+      // characterMenu: [{
+      //   text: 'Copy',
+      //   icon: 'content_copy',
+      //   action: this.copyCharacter()
+      // }, {
+      //   text: 'Delete',
+      //   icon: 'delete',
+      //   action: showDelete
+      // }]
       // characters: undefined,
       // selectedCharacter: undefined
     }
@@ -115,6 +172,38 @@ export default {
 
     selectCharacter (id) {
       this.$store.commit('select_character', id)
+    },
+
+    async copyCharacter (character) {
+      try {
+        await this.$db
+          .ref(`/characters/${this.user.uid}/`)
+          .push(character)
+        this.$bus.$emit('snackbar', `Character Copied`)
+      } catch (error) {
+        console.warn(error)
+      }
+    },
+
+    async deleteCharacter (id) {
+      try {
+        this.deleting = true
+        await this.$db
+          .ref(`/characters/${this.user.uid}/${id}`)
+          .remove()
+        this.$bus.$emit('snackbar', `Character Deleted`)
+      } catch (error) {
+        console.warn(error)
+      } finally {
+        this.deleting = false
+        this.showDeleteDialog = false
+      }
+    },
+
+    showDelete (character, id) {
+      this.showDeleteDialog = true
+      this.selectedCharacter = character
+      this.selectedCharacter.id = id
     }
   },
 

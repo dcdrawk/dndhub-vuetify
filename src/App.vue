@@ -88,4 +88,7 @@ export default {
 
 <style lang="stylus">
 @import './stylus/main'
+.application--footer > main > .container {
+  min-height: calc(100vh - 56px);
+}
 </style>
