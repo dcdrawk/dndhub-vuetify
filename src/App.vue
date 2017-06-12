@@ -74,8 +74,8 @@ export default {
     .auth()
     .onAuthStateChanged(user => {
       if (user) {
-        this.user = user
-        this.$store.commit('login', user)
+        // this.user = user
+        this.$store.commit('update_user', user)
         console.log(`logged in as ${user.email}.`)
       } else {
         this.user = undefined

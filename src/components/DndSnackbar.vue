@@ -5,7 +5,7 @@
     v-model="dataShow"
   >
     {{ dataText }}
-    <v-btn flat class="pink--text" @click.native="dataShow = false">Close</v-btn>
+    <v-btn flat class="blue--text" @click.native="dataShow = false">Close</v-btn>
   </v-snackbar>
 </template>
 

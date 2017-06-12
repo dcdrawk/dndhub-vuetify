@@ -6,7 +6,7 @@
     :value="drawer"
     @input="$emit('toggle', $event)"
   >
-    <v-list>
+    <v-list dense>
       <v-list-item  :router="true"
         v-for="(item, i) in menuItems"
         :key="i"
@@ -23,7 +23,7 @@
       </v-list-item>
     </v-list>
     <v-divider></v-divider>
-    <v-list v-if="character" subheader>
+    <v-list dense v-if="character" subheader>
       <v-subheader class="grey--text">
         Character
       </v-subheader>
@@ -84,6 +84,7 @@ export default {
       ],
       userMenu: [
         // { icon: 'exit_to_app', title: 'Sign Out' },
+        { icon: 'account_circle', title: 'Profile', path: 'profile' },
         { icon: 'list', title: 'Character List', path: 'character-list' }
       ],
       characterMenu: [
@@ -97,7 +98,7 @@ export default {
           }, {
             title: 'Class Info'
           }, {
-            title: 'Personality'
+            title: 'Background & Personality'
           }]
         }, {
           icon: 'list',

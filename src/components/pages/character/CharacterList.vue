@@ -8,11 +8,7 @@
             @click.native="$router.push('new-character')">
               New Character
               <v-icon right light>add</v-icon>
-              <!--<v-icon right light>cloud_upload</v-icon>-->
             </v-btn>
-            <!--<v-card-title>
-              <span class="white--text">Characters</span>
-            </v-card-title>-->
             <v-spacer></v-spacer>
             <v-fade-transition>
               <v-progress-circular v-if="loading" indeterminate class="mr-2 primary--text"></v-progress-circular>
