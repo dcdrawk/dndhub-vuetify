@@ -1,9 +1,9 @@
 <template>
   <v-container fluid>
     <v-layout row wrap v-if="user">
-      <v-flex xs6>
-        <v-card>
-          <v-card-title class="grey darken-2 white--text">
+      <v-flex xs12 md6>
+        <v-card class="mb-2">
+          <v-card-title class="grey darken-1 white--text">
             Account Info
           </v-card-title>
           <v-card-text>
@@ -63,9 +63,9 @@
         </v-card>
       </v-flex>
 
-      <v-flex xs6>
+      <v-flex xs12 md6>
         <v-card>
-          <v-card-title class="grey darken-2 white--text">
+          <v-card-title class="grey darken-1 white--text">
             Settings
           </v-card-title>
           <v-card-text>

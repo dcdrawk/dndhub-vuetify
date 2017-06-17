@@ -128,7 +128,14 @@
 
           <!-- Create Character -->
           <v-flex xs12>
-            <v-btn class="ml-0" primary @click.native="createCharacter" light>Create Character</v-btn>
+            <v-btn
+              class="ml-0 white--text"
+              primary
+              @click.native="createCharacter"
+              :disabled="!character.name || veeErrors.any() > 0"
+            >
+              Create Character
+            </v-btn>
             <!--<v-btn flat dark @click.native="step = 1">Back</v-btn>-->
           </v-flex>
 

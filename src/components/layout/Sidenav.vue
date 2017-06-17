@@ -7,7 +7,7 @@
     @input="$emit('toggle', $event)"
   >
     <v-list dense>
-      <v-list-item  :router="true"
+      <v-list-item
         v-for="(item, i) in menuItems"
         :key="i"
       >
@@ -31,7 +31,11 @@
         v-for="(item, i) in characterMenu"
         :key="i"
       >
-        <v-list-tile value="true" slot="item" light >
+        <v-list-tile
+          value="true"
+          slot="item"
+          light
+        >
           <!--<v-list-tile-action>
             <v-icon class="white--text text--darken-2" v-html="item.icon"></v-icon>-->
             <!--<v-icon v-html="item.icon"></v-icon>-->
@@ -44,9 +48,11 @@
           </v-list-tile-action>
         </v-list-tile>
         <v-list-item v-for="subItem in item.items" v-bind:key="subItem.title">
-          <v-list-tile>
+          <v-list-tile
+          :router="true"
+          :to="item.path">
             <v-list-tile-content>
-              <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
+              <v-list-tile-title class="white--text">{{ subItem.title }}</v-list-tile-title>
             </v-list-tile-content>
             <v-list-tile-action>
               <v-icon dark>{{ subItem.action }}</v-icon>
@@ -94,11 +100,14 @@ export default {
           title: 'General',
           path: 'general',
           items: [{
-            title: 'Character Info'
+            title: 'Character Info',
+            path: 'character-info'
           }, {
-            title: 'Class Info'
+            title: 'Race Info',
+            path: 'race-info'
           }, {
-            title: 'Background & Personality'
+            title: 'Class Info',
+            path: 'class-info'
           }]
         }, {
           icon: 'list',
@@ -161,13 +170,6 @@ export default {
     }
   },
 
-  // Methods
-  methods: {
-    myFunction () {
-      return 'something'
-    }
-  },
-
   // Computed
   computed: {
     menuItems () {
@@ -181,13 +183,6 @@ export default {
     // },
     user () {
       return this.$store.state.user
-    }
-  },
-
-  // Watch
-  watch: {
-    watchProperty (newValue, oldValue) {
-      return newValue
     }
   }
 }
