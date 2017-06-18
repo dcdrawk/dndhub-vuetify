@@ -211,16 +211,14 @@ export default {
 
   // Computed
   computed: {
-    computedProperty () {
-      return 'something'
-    },
-
     alignments () {
       return this.$store.state.gameData.alignments
     },
+
     backgrounds () {
       return this.$store.state.gameData.backgrounds
     },
+
     races () {
       return this.$store.state.gameData.races
     },

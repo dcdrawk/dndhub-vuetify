@@ -10,6 +10,8 @@ import Profile from '@/components/pages/auth/Profile'
 // Character
 import CharacterList from '@/components/pages/character/CharacterList'
 import NewCharacter from '@/components/pages/character/NewCharacter'
+import CharacterInfo from '@/components/pages/character/CharacterInfo'
+import RaceInfo from '@/components/pages/character/RaceInfo'
 
 Vue.use(Router)
 
@@ -39,6 +41,14 @@ export default new Router({
       path: '/new-character',
       name: 'New Character',
       component: NewCharacter
+    }, {
+      path: '/character-info',
+      name: 'Character Info',
+      component: CharacterInfo
+    }, {
+      path: '/race-info',
+      name: 'Race Info',
+      component: RaceInfo
     }
   ]
 })

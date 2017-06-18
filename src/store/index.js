@@ -25,6 +25,12 @@ const store = new Vuex.Store({
       Vue.set(state.characters, payload.id, payload.character)
     },
 
+    update_character (state, update) {
+      console.log('lololol...')
+      // state.characters = characters
+      Vue.set(state.character, update.field, update.value)
+    },
+
     update_characters (state, characters) {
       state.characters = characters
     },

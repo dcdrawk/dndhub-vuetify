@@ -1,9 +1,11 @@
 <template>
   <v-navigation-drawer
-    persistent
-    :mini-variant="miniVariant"
-    :clipped="clipped"
+    :persistent="true"
+    :clipped="true"
+    floating
+    :hide-overlay="false"
     :value="drawer"
+    temporary
     @input="$emit('toggle', $event)"
   >
     <v-list dense>
@@ -36,10 +38,6 @@
           slot="item"
           light
         >
-          <!--<v-list-tile-action>
-            <v-icon class="white--text text--darken-2" v-html="item.icon"></v-icon>-->
-            <!--<v-icon v-html="item.icon"></v-icon>-->
-          <!--</v-list-tile-action>-->
           <v-list-tile-content>
             <v-list-tile-title class="white--text" v-text="item.title"></v-list-tile-title>
           </v-list-tile-content>
@@ -47,10 +45,11 @@
             <v-icon class="white--text">keyboard_arrow_down</v-icon>
           </v-list-tile-action>
         </v-list-tile>
+        <!-- subItems -->
         <v-list-item v-for="subItem in item.items" v-bind:key="subItem.title">
           <v-list-tile
           :router="true"
-          :to="item.path">
+          :to="subItem.path">
             <v-list-tile-content>
               <v-list-tile-title class="white--text">{{ subItem.title }}</v-list-tile-title>
             </v-list-tile-content>
@@ -98,15 +97,15 @@ export default {
         {
           icon: 'list',
           title: 'General',
-          path: 'general',
+          // path: 'general',
           items: [{
-            title: 'Character Info',
+            title: 'Character',
             path: 'character-info'
           }, {
-            title: 'Race Info',
+            title: 'Race',
             path: 'race-info'
           }, {
-            title: 'Class Info',
+            title: 'Class',
             path: 'class-info'
           }]
         }, {

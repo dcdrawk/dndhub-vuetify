@@ -21,9 +21,9 @@
     </main>
 
     <!-- Footer -->
-    <v-footer fixed>
+    <!--<v-footer fixed>
       <span>&copy; 2017</span>
-    </v-footer>
+    </v-footer>-->
 
     <!-- Game Data -->
     <game-data v-if="user"></game-data>
